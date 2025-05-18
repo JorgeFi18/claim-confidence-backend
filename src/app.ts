@@ -7,7 +7,7 @@ const app: Express = express();
 
 // Configure CORS
 app.use(cors({
-  origin: 'http://localhost:4200',
+  origin: ['http://localhost:4200', 'https://main.d3dassni0i91jn.amplifyapp.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

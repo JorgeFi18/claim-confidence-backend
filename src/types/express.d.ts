@@ -1,6 +1,6 @@
 import { UserRole } from './index';
 import { Request, RequestHandler } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
+import type { ParamsDictionary } from 'express-serve-static-core';
 
 declare global {
   namespace Express {
@@ -38,7 +38,7 @@ export type AuthenticatedRequestHandler<
   { user: AuthenticatedUser }
 >;
 
-export interface AuthenticatedRequestWithParams<P> extends AuthenticatedRequest {
+export interface AuthenticatedRequestWithParams<P extends ParamsDictionary> extends AuthenticatedRequest {
   params: P;
 }
 
@@ -46,7 +46,7 @@ export interface AuthenticatedRequestWithBody<B> extends AuthenticatedRequest {
   body: B;
 }
 
-export interface AuthenticatedRequestWithParamsAndBody<P, B> extends AuthenticatedRequest {
+export interface AuthenticatedRequestWithParamsAndBody<P extends ParamsDictionary, B> extends AuthenticatedRequest {
   params: P;
   body: B;
 }
