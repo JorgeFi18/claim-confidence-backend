@@ -13,6 +13,13 @@ router.get(
   claimController.getClaims
 );
 
+// Get claim by ID
+router.get(
+  '/:id',
+  authMiddleware.authenticate,
+  claimController.getClaimById
+);
+
 // Create new claim (only claimants)
 router.post(
   '/',
@@ -35,4 +42,4 @@ router.post(
   claimController.addComment
 );
 
-export default router; 
+export default router;

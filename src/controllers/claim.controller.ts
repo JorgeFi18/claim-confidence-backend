@@ -183,4 +183,54 @@ export class ClaimController {
       });
     }
   };
+
+  public getClaimById: AuthenticatedRequestHandler<
+    { id: string },
+    ApiResponse<IClaim>
+  > = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const claim = await this.claimRepository.findById(id);
+
+      if (!claim) {
+        res.status(404).json({
+          success: false,
+          message: 'Claim not found',
+          error: 'Invalid claim ID'
+        });
+        return;
+      }
+
+      // Check if user has access to this claim
+      if (req.user?.role === UserRole.MANAGER) {
+        if (claim.providerId !== req.user.providerId) {
+          res.status(403).json({
+            success: false,
+            message: 'Access denied',
+            error: 'You do not have access to this claim'
+          });
+          return;
+        }
+      } else if (claim.userId !== req.user?.id) {
+        res.status(403).json({
+          success: false,
+          message: 'Access denied',
+          error: 'You do not have access to this claim'
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'Claim retrieved successfully',
+        data: claim
+      });
+    } catch (error: any) {
+      res.status(400).json({
+        success: false,
+        message: 'Failed to retrieve claim',
+        error: error.message
+      });
+    }
+  };
 }

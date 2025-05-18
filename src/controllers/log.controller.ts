@@ -20,12 +20,10 @@ export class LogController {
 
       // Si se proporciona claimId como query parameter
       const { claimId } = req.query;
-      
+
       if (claimId) {
-        // Si hay claimId, buscar logs específicos de esa claim
         logs = await this.logRepository.findByClaim(claimId as string);
       } else {
-        // Si no hay claimId, buscar todos los logs del usuario
         logs = await this.logRepository.findByUser(req.user?.id!);
       }
 
@@ -49,7 +47,7 @@ export class LogController {
   > = async (req, res) => {
     try {
       const { claimId } = req.params;
-      
+
       const logs = await this.logRepository.findByClaim(claimId);
 
       res.status(200).json({
