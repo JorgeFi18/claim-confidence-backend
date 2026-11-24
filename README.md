@@ -15,8 +15,8 @@ A robust claims management system built with Node.js, TypeScript, and MongoDB. T
 
 ## Requirements
 
-- Node.js v20 or higher
-- pnpm (Package Manager)
+- Node.js v26
+- npm (included with Node.js)
 - MongoDB Atlas account
 - Docker (optional)
 
@@ -55,7 +55,7 @@ src/
 
 2. **Install dependencies**
    ```bash
-   pnpm install
+   npm ci
    ```
 
 3. **Set up environment variables**
@@ -68,12 +68,12 @@ src/
 
 4. **Build the project**
    ```bash
-   pnpm build
+   npm run build
    ```
 
 5. **Start the development server**
    ```bash
-   pnpm dev
+   npm run dev
    ```
 
 ### Docker Deployment
