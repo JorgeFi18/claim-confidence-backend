@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "^26.0.0"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --debug ./src/server.ts",
     "build": "tsc",
@@ -26,6 +29,7 @@
     "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
+    "@types/node": "^26.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.18",
     "@types/express": "^5.0.2",

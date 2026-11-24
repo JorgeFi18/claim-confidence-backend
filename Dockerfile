@@ -1,38 +1,32 @@
 # Build stage
-FROM node:20-alpine as builder
-
-# Install pnpm
-RUN npm install -g pnpm
+FROM node:26-alpine AS builder
 
 # Set working directory
 WORKDIR /app
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN pnpm install
+RUN npm ci
 
 # Copy source code
 COPY . .
 
 # Build TypeScript code
-RUN pnpm build
+RUN npm run build
 
 # Production stage
-FROM node:20-alpine
-
-# Install pnpm
-RUN npm install -g pnpm
+FROM node:26-alpine
 
 # Set working directory
 WORKDIR /app
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY package.json package-lock.json ./
 
 # Install production dependencies only
-RUN pnpm install --prod
+RUN npm ci --omit=dev
 
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
